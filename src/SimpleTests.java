@@ -5,61 +5,48 @@ public class SimpleTests {
 
     @Test
     public void testSimple1() {
-        long actual = Main.testQuantity(4, 7);
-        Assert.assertEquals(4, actual);
+        String actual = Main.oddEven(4, new int[]{2,1,4,6});
+        Assert.assertEquals("-1 -1", actual);
     }
-
     @Test
     public void testSimple2() {
-        long actual = Main.testQuantity(10, 100);
-        Assert.assertEquals(9, actual);
+        String actual = Main.oddEven(2, new int[]{1,2});
+        Assert.assertEquals("-1 -1", actual);
     }
     @Test
     public void testSimple3() {
-        long actual = Main.testQuantity(164, 1147);
-        Assert.assertEquals(9, actual);
+        String actual = Main.oddEven(2, new int[]{2,1});
+        Assert.assertEquals("1 2", actual);
     }
     @Test
     public void testSimple4() {
-        long actual = Main.testQuantity(1, 1_000_000_000_000_000_000L);
-        Assert.assertEquals(162, actual);
+        String actual = Main.oddEven(2, new int[]{1,1});
+        Assert.assertEquals("-1 -1", actual);
     }
     @Test
     public void testSimple5() {
-        long actual = Main.testQuantity(2, 2);
-        Assert.assertEquals(1, actual);
+        String actual = Main.oddEven(5, new int[]{1,2,5,1,3});
+        Assert.assertEquals("-1 -1", actual);
     }
     @Test
     public void testSimple6() {
-        long actual = Main.testQuantity(23, 23);
-        Assert.assertEquals(0, actual);
+        String actual = Main.oddEven(5, new int[]{1,2,5,1,4});
+        Assert.assertEquals("4 5", actual);
     }
     @Test
     public void testSimple7() {
-        long actual = Main.testQuantity(777, 777);
-        Assert.assertEquals(1, actual);
+        String actual = Main.oddEven(5, new int[]{1,2,3,4,5});
+        Assert.assertEquals("-1 -1", actual);
     }
     @Test
     public void testSimple8() {
-        long actual = Main.testQuantity(776, 777);
-        Assert.assertEquals(1, actual);
+        String actual = Main.oddEven(6, new int[]{1,2,5,2,4,3});
+        Assert.assertEquals("5 6", actual);
     }
     @Test
     public void testSimple9() {
-        long actual = Main.testQuantity(777, 778);
-        Assert.assertEquals(1, actual);
+        String actual = Main.oddEven(6, new int[]{1,2,5,2,4,3,7});
+        Assert.assertEquals("5 6", actual);
     }
-    @Test
-    public void testSimple10() {
-        long actual = Main.testQuantity(9, 10);
-        Assert.assertEquals(1, actual);
-    }
-    @Test
-    public void testSimple11() {
-        long actual = Main.testQuantity(23, 24);
-        Assert.assertEquals(0, actual);
-    }
-
-
 
 }
