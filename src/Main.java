@@ -1,45 +1,36 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int[] first = Arrays.stream(in.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int[] second = Arrays.stream(in.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        System.out.println(maxSum(first, second));
+        System.out.println(testQuantity(in.nextLong(), in.nextLong()));
     }
 
-    public static long maxSum(int[] first, int[] second) {
-        long sum = 0L;
-        List<List<Integer>> list = new ArrayList<>();
-        for (int x : second
-        ) {
-            int count = 0;
-            List<Integer> l;
-            do {
-                try {
-                    l = list.get(count);
-                } catch (IndexOutOfBoundsException e) {
-                    l = new ArrayList<>();
-                    list.add(l);
-                }
-                l.add(x % 10);
-                count++;
-                x /= 10;
-            }
-            while (x != 0);
+    public static int testQuantity(long start, long finish) {
+        String startString = String.valueOf(start);
+        String finishString = String.valueOf(finish);
+        int startLen = startString.length();
+        int finishLen = finishString.length();
+        int startBorder = borderQuantity(startString, true);
+        int finishBorder = borderQuantity(finishString, false);
+        if (startLen == finishLen) {
+            return finishBorder - startBorder + 1;
         }
-        for (int i = list.size() - 1; i >= 0; i--) {
-            List<Integer> l = list.get(i);
-            Collections.sort(l);
-            for (int n : l
-            ) {
-                if (first[1] == 0)
-                    return sum;
-                sum += (9 - n) * Math.pow(10, i);
-                first[1] -= 1;
-            }
+        return (finishLen - startLen - 1) * 9 +
+                10 - startBorder +
+                finishBorder;
+    }
+
+    private static int borderQuantity(String border, boolean isStart) {
+        int a = Integer.parseInt(String.valueOf(border.charAt(0)));
+        int b = isStart ? 0 : 10;
+        for (int i = 1; i < border.length(); i++) {
+            b = Integer.parseInt(String.valueOf(border.charAt(i)));
+            if (a != b) break;
         }
-        return sum;
+        return isStart ?
+                a >= b ? a : a + 1 :
+                a > b ? a - 1 : a;
     }
 }

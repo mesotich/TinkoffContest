@@ -5,44 +5,61 @@ public class SimpleTests {
 
     @Test
     public void testSimple1() {
-        long actual = Main.maxSum(new int[]{5, 2}, new int[]{1, 2, 1, 3, 5});
-        Assert.assertEquals(16, actual);
+        long actual = Main.testQuantity(4, 7);
+        Assert.assertEquals(4, actual);
     }
 
     @Test
     public void testSimple2() {
-        long actual = Main.maxSum(new int[]{3, 1}, new int[]{99, 5, 85});
-        Assert.assertEquals(10, actual);
+        long actual = Main.testQuantity(10, 100);
+        Assert.assertEquals(9, actual);
     }
-
     @Test
     public void testSimple3() {
-        long actual = Main.maxSum(new int[]{1, 10}, new int[]{9999});
-        Assert.assertEquals(0, actual);
+        long actual = Main.testQuantity(164, 1147);
+        Assert.assertEquals(9, actual);
     }
     @Test
     public void testSimple4() {
-        long actual = Main.maxSum(new int[]{2, 10}, new int[]{10,20});
-        Assert.assertEquals(168, actual);
+        long actual = Main.testQuantity(1, 1_000_000_000_000_000_000L);
+        Assert.assertEquals(162, actual);
     }
     @Test
     public void testSimple5() {
-        long actual = Main.maxSum(new int[]{2, 2}, new int[]{1_000_000_000,1_000_000_000});
-        Assert.assertEquals(16_000_000_000L, actual);
+        long actual = Main.testQuantity(2, 2);
+        Assert.assertEquals(1, actual);
     }
     @Test
     public void testSimple6() {
-        long actual = Main.maxSum(new int[]{2, 4}, new int[]{1_000_000_000,1_000_000_000});
-        Assert.assertEquals(17_800_000_000L, actual);
+        long actual = Main.testQuantity(23, 23);
+        Assert.assertEquals(0, actual);
     }
     @Test
     public void testSimple7() {
-        long actual = Main.maxSum(new int[]{1, 1}, new int[]{1});
-        Assert.assertEquals(8, actual);
+        long actual = Main.testQuantity(777, 777);
+        Assert.assertEquals(1, actual);
     }
     @Test
     public void testSimple8() {
-        long actual = Main.maxSum(new int[]{1, 1}, new int[]{1});
-        Assert.assertEquals(8, actual);
+        long actual = Main.testQuantity(776, 777);
+        Assert.assertEquals(1, actual);
     }
+    @Test
+    public void testSimple9() {
+        long actual = Main.testQuantity(777, 778);
+        Assert.assertEquals(1, actual);
+    }
+    @Test
+    public void testSimple10() {
+        long actual = Main.testQuantity(9, 10);
+        Assert.assertEquals(1, actual);
+    }
+    @Test
+    public void testSimple11() {
+        long actual = Main.testQuantity(23, 24);
+        Assert.assertEquals(0, actual);
+    }
+
+
+
 }
