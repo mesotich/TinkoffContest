@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -7,17 +6,40 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int[] first = Arrays.stream(in.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         int[] second = Arrays.stream(in.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int third = in.nextInt();
-        System.out.println(minFlight(first, second, third));
+        System.out.println(maxSum(first, second));
     }
 
-    public static int minFlight(int[] first, int[] second, int third) {
-        int fastIndex = third - 1;
-        int len = first[0] - 1;
-        if (second[fastIndex] - second[0] <= first[1])
-            return second[len] - second[0];
-        int down = second[fastIndex] - second[0];
-        int up = second[len] - second[fastIndex];
-        return down < up ? 2 * down + up : 2 * up + down;
+    public static long maxSum(int[] first, int[] second) {
+        long sum = 0L;
+        List<List<Integer>> list = new ArrayList<>();
+        for (int x : second
+        ) {
+            int count = 0;
+            List<Integer> l;
+            do {
+                try {
+                    l = list.get(count);
+                } catch (IndexOutOfBoundsException e) {
+                    l = new ArrayList<>();
+                    list.add(l);
+                }
+                l.add(x % 10);
+                count++;
+                x /= 10;
+            }
+            while (x != 0);
+        }
+        for (int i = list.size() - 1; i >= 0; i--) {
+            List<Integer> l = list.get(i);
+            Collections.sort(l);
+            for (int n : l
+            ) {
+                if (first[1] == 0)
+                    return sum;
+                sum += (9 - n) * Math.pow(10, i);
+                first[1] -= 1;
+            }
+        }
+        return sum;
     }
 }
