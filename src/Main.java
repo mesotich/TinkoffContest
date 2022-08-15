@@ -1,35 +1,50 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
+    public int n;
+    public int[] values;
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
+        Main main = new Main();
+        main.n = in.nextInt();
         in.nextLine();
-        int[] row = Arrays.stream(in.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        System.out.println(oddEven(n, row));
+        main.values = Arrays.stream(in.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        System.out.println(main.sum());
     }
 
-    public static String oddEven(int n, int[] row) {
-        int oddInd = -1;
-        int evenInd = -1;
-        int val;
-        int place;
-        for (int i = 0; i < n; i++) {
-            val = row[i] % 2;
-            place = i % 2;
-            if ((val == 1 && place == 0) || (val == 0 && place == 1))
-                continue;
-            if (val == 0) {
-                if (oddInd != -1) return "-1 -1";
-                else oddInd = i + 1;
-            } else {
-                if (evenInd != -1) return "-1 -1";
-                else evenInd = i + 1;
+    public int sum() {
+        return Arrays.stream(values).sum() - sumDiscount(0, new ArrayList<>(), 0);
+    }
+
+    public int sumDiscount(int i, List<Integer> maxValues, int maxSum) {
+        List<Integer> newMaxValues = null;
+        while (i < n) {
+            if (values[i] >= 100) {
+                newMaxValues = new ArrayList<>(maxValues);
+                newMaxValues.add(0);
+                maxSum = sumDiscount(i + 1, newMaxValues, maxSum);
             }
+            maxValues = changeMinValue(maxValues, values[i]);
+            i++;
         }
-        if (oddInd == -1 || evenInd == -1) return "-1 -1";
-        return oddInd < evenInd ? oddInd + " " + evenInd : evenInd + " " + oddInd;
+        return Math.max(maxSum, maxValues.stream().mapToInt(Integer::intValue).sum());
+    }
+
+    private List<Integer> changeMinValue(List<Integer> maxValues, int forChange) {
+        if (maxValues == null || maxValues.size() == 0)
+            return maxValues;
+        int minInd = 0;
+        for (int i = 1; i < maxValues.size(); i++) {
+            if (maxValues.get(i) < maxValues.get(minInd))
+                minInd = i;
+        }
+        if (forChange > maxValues.get(minInd))
+            maxValues.set(minInd, forChange);
+        return maxValues;
     }
 }
